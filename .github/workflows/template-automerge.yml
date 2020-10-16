@@ -6,7 +6,8 @@ name: Auto-merge template branches
 # events but only for the main branch
 on:
   push:
-    branches: [ template-* ]
+    branches:
+      - "template-*"
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
