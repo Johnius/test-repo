@@ -1,0 +1,35 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Auto-merge template branches
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [ template-* ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Branch Merge
+        # You may pin to the exact commit or the version.
+        # uses: everlytic/branch-merge@43400784008f811a3400f7e165ca9de0a8998a0b
+        uses: everlytic/branch-merge@1.1.0
+        with:
+          # Token used to authenticate with GitHub when performing the merge command.
+          github_token: ${{ github.token }}
+          # Branch name or Ref that you wish to merge into the target_branch.
+          source_ref: ${{ github.ref }}
+          # Branch you are merging the source ref into.
+          target_branch: main
+          # Template to generate the commit message, see README.md for more info
+          commit_message_template: Automatic merge of a template branch {source_ref} into {target_branch}.
